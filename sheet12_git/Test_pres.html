@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Approximating pi with the strong law of large numbers</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Maximilian Strobel" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Approximating pi with the strong law of large numbers
+### Maximilian Strobel
+### 2021/07/12
+
+---
+
+
+#The law of large numbers
+
+* Let `\((X_i)_{i \in \mathbb{N}}\)` i.i.d and Lebesgue measurable, with `\(E(X_i)=\mu\)`
+
+---
+
+#The law of large numbers
+
+* Let `\((X_i)_{i \in \mathbb{N}}\)` i.i.d and Lebesgue measurable, with `\(E(X_i)=\mu\)`
+* Then the law of large numbers states that: `$$\frac{1}{n}\sum_{i=1}^{n} X_i \rightarrow \mu$$`
+for `\(n \rightarrow \infty\)` almost surely.
+
+---
+
+#The law of large numbers
+
+* Let `\((X_i)_{i \in \mathbb{N}}\)` i.i.d and Lebesgue measurable, with `\(E(X_i)=\mu\)`
+* Then the law of large numbers states that: `$$\frac{1}{n}\sum_{i=1}^{n} X_i \rightarrow \mu$$`
+for `\(n \rightarrow \infty\)` almost surely.
+* We use this result to approximate `\(\pi\)`:
+  + Let `\(X_i\)` ~ `\(U([-1,1]^2)\)` independent, then `\(I(|X_i|&lt;1)\)` ~ `\(Ber(P(|X_i|&lt;1))\)`
+  + Now: `\(\frac{1}{n}\sum_{i=1}^{n} I(|X_i|&lt;1) \rightarrow P(|X_1|&lt;1)\)` for `\(n \rightarrow \infty\)` almost surely.
+  + We use the Lebesgue Measure on `\(\Omega = [0,1]\)` as probability measure here, so we get: `\(P(|X_1|&lt;1) = \frac{B_1(0)}{|[-1,1]^2|} = \frac{\pi}{2^2}\)`
+  + Thus we can approximate ( `\(n\)` sufficiently large): `$$\pi \approx \frac{4}{n}\sum_{i=1}^{n} I(|X_i|&lt;1)$$`
+
+???
+The area of a circle is `\(\pi\)` (mind = blown)
+---
+
+#Simulation
+We simulate this using R
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; approx &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1e+01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.600000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1e+02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.120000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1e+03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.148000 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;"&gt; 1e+04 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.158800 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 1e+05 &lt;/td&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 3.142840 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 1e+06 &lt;/td&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 3.144448 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+As we can see, this method gives a rough estimte of `\(\pi\)`, however we don't improve the accuracy a lot, by using huge simulation numbers
+
+---
+
+#Visualisation
+This method uses the concept of Monte-Carlo simulations. A visualisation is given in the following plot
+
+![](Test_pres_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
