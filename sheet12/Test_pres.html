@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>A lame presentation…but</title>
+    <title>Approximating pi with the strong law of large numbers</title>
     <meta charset="utf-8" />
-    <meta name="author" content="…and its getting late sorry :(" />
+    <meta name="author" content="Maximilian Strobel" />
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
@@ -13,123 +13,86 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# A lame presentation…but
-## Italy just won…
-### …and its getting late sorry :(
+# Approximating pi with the strong law of large numbers
+### Maximilian Strobel
 ### 2021/07/12
 
 ---
 
 
-Interesting plot
+#The law of large numbers
 
-![](Test_pres_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+* Let `\((X_i)_{i \in \mathbb{N}}\)` i.i.d and Lebesgue measurable, with `\(E(X_i)=\mu\)`
+
+---
+
+#The law of large numbers
+
+* Let `\((X_i)_{i \in \mathbb{N}}\)` i.i.d and Lebesgue measurable, with `\(E(X_i)=\mu\)`
+* Then the law of large numbers states that: `$$\frac{1}{n}\sum_{i=1}^{n} X_i \rightarrow \mu$$`
+for `\(n \rightarrow \infty\)` almost surely.
+
+---
+
+#The law of large numbers
+
+* Let `\((X_i)_{i \in \mathbb{N}}\)` i.i.d and Lebesgue measurable, with `\(E(X_i)=\mu\)`
+* Then the law of large numbers states that: `$$\frac{1}{n}\sum_{i=1}^{n} X_i \rightarrow \mu$$`
+for `\(n \rightarrow \infty\)` almost surely.
+* We use this result to approximate `\(\pi\)`:
+  + Let `\(X_i\)` ~ `\(U([-1,1]^2)\)` independent, then `\(I(|X_i|&lt;1)\)` ~ `\(Ber(P(|X_i|&lt;1))\)`
+  + Now: `\(\frac{1}{n}\sum_{i=1}^{n} I(|X_i|&lt;1) \rightarrow P(|X_1|&lt;1)\)` for `\(n \rightarrow \infty\)` almost surely.
+  + We use the Lebesgue Measure on `\(\Omega = [0,1]\)` as probability measure here, so we get: `\(P(|X_1|&lt;1) = \frac{B_1(0)}{|[-1,1]^2|} = \frac{\pi}{2^2}\)`
+  + Thus we can approximate ( `\(n\)` sufficiently large): `$$\pi \approx \frac{4}{n}\sum_{i=1}^{n} I(|X_i|&lt;1)$$`
 
 ???
-Really important note
-
+The area of a circle is `\(\pi\)` (mind = blown)
 ---
 
-* Highlight 1
-
----
-
-* Highlight 1
-* Highlight 2
-
----
-
-* Highlight 1
-* Highlight 2
-* Highlight 3
-
----
-
-Interesting stuff
-
+#Simulation
+We simulate this using R
 &lt;table&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; manufacturer &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; model &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; displ &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; year &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; cyl &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; n &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; approx &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;color: black !important;background-color: yellow !important;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;color: black !important;background-color: yellow !important;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 1.8 &lt;/td&gt;
-   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 1999 &lt;/td&gt;
-   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1e+01 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.600000 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1999 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1e+02 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.120000 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;color: black !important;background-color: yellow !important;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;color: black !important;background-color: yellow !important;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 2.0 &lt;/td&gt;
-   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 2008 &lt;/td&gt;
-   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1e+03 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.148000 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1e+04 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3.158800 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.8 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1999 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 1e+05 &lt;/td&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 3.142840 &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.8 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1999 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3.1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 quattro &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1999 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 quattro &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1.8 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 1999 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; audi &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; a4 quattro &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2.0 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2008 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 1e+06 &lt;/td&gt;
+   &lt;td style="text-align:right;color: black !important;background-color: yellow !important;"&gt; 3.144448 &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+As we can see, this method gives a rough estimte of `\(\pi\)`, however we don't improve the accuracy a lot, by using huge simulation numbers
+
+---
+
+#Visualisation
+This method uses the concept of Monte-Carlo simulations. A visualisation is given in the following plot
+
+![](Test_pres_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
